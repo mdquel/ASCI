@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 using SentimentChat.Data;
 
 using Microsoft.AspNetCore.ResponseCompression;
@@ -16,6 +17,8 @@ builder.Services.AddResponseCompression(opts =>
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
         new[] { "application/octet-stream" });
 });
+
+builder.Services.AddSpeechRecognition();
 
 var app = builder.Build();
 

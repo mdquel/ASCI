@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.SignalR.Client
+@using Toolbelt.Blazor.SpeechRecognition
 @inject NavigationManager NavigationManager
+@inject SpeechRecognition SpeechRecognition
 @implements IAsyncDisposable
 
 <PageTitle>Index</PageTitle>
@@ -11,15 +13,34 @@
         <input @bind="userInput" />
     </label>
 </div>
+<br>
 <div class="form-group">
     <label>
         Message:
         <input @bind="messageInput" size="50" />
     </label>
 </div>
-<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+<button @onclick="Send" disabled="@(!IsConnected)">Enviar</button>
+
+
+
+<button @onclick="OnClickStart" disabled="@(IsListening)">Iniciar</button>
+<button @onclick="OnClickStop" disabled="@(!IsListening)">stop</button>
 
 <hr>
+<div>
+    @foreach (var result in this.Results)
+    {
+        if (result.IsFinal)
+        {
+            <text>@result.Items[0].Transcript</text>
+        }
+        else
+        {
+            <i style="color:#ddd;">@result.Items[0].Transcript</i>
+        }
+    }
+</div>
 
 <ul id="messagesList">
     @foreach (var message in messages)
@@ -29,6 +50,11 @@
 </ul>
 
 @code {
+    SpeechRecognitionResult[] Results = new SpeechRecognitionResult[0];
+    bool IsListening = false;
+
+
+
     private HubConnection? hubConnection;
     private List<string> messages = new List<string>();
     private string? userInput;
@@ -36,6 +62,13 @@
 
     protected override async Task OnInitializedAsync()
     {
+        this.SpeechRecognition.Lang = "es-ES";
+        this.SpeechRecognition.InterimResults = true;
+        this.SpeechRecognition.Continuous = true;
+        this.SpeechRecognition.Result += OnSpeechRecognized;
+        this.SpeechRecognition.End += OnSpeechEnded;
+
+
         hubConnection = new HubConnectionBuilder()
             .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
             .Build();
@@ -68,4 +101,52 @@
             await hubConnection.DisposeAsync();
         }
     }
+
+    private async void OnSpeechRecognized(object sender, SpeechRecognitionEventArgs args)
+    {
+        this.Results = args.Results.Skip(args.ResultIndex).ToArray();
+        this.StateHasChanged();
+        foreach (var result in this.Results)
+        {
+            if (result.IsFinal)
+            {
+                await hubConnection.SendAsync("SendMessage", userInput, result.Items[0].Transcript);
+            }
+        }
+    }
+
+    private async Task OnClickStart()
+    {
+        if (!this.IsListening)
+        {
+            this.IsListening = true;
+            await this.SpeechRecognition.StartAsync();
+        }
+    }
+
+    private async Task OnClickStop()
+    {
+        if (this.IsListening)
+        {
+            this.IsListening = false;
+            await this.SpeechRecognition.StopAsync();
+        }
+    }
+
+    private void OnSpeechEnded(object sender, EventArgs args)
+    {
+        if (this.IsListening)
+        {
+            this.IsListening = false;
+            this.StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        this.SpeechRecognition.Result -= OnSpeechRecognized;
+        this.SpeechRecognition.End -= OnSpeechEnded;
+    }
+
+
 }
