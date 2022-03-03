@@ -13,7 +13,7 @@ namespace SentimentChat.Hubs
             var intentos = 0;
         Goto:
             var http = new HttpClient();
-            var api = "https://localhost:5000/Sentiment";
+            var api = "https://localhost:5000/api/v1/sentiment/predict";
             var myContent = JsonConvert.SerializeObject(new
             {
                 summany = message

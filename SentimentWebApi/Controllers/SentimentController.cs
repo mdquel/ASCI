@@ -6,7 +6,7 @@ using SentimentWebApi.Models.RestModel;
 namespace SentimentWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/sentiment")]
 
     public class SentimentController : ControllerBase
     {
@@ -15,9 +15,10 @@ namespace SentimentWebApi.Controllers
         {
             _logger = logger;
         }
-
-        [HttpPost(Name = "Predict")]
-        public RestSentiment Post(InputSentiment inputData)
+        
+        [HttpPost]
+        [Route("predict")]
+        public RestSentiment PostSentiment(InputSentiment inputData)
         {
             MLSentimentModel.ModelInput processData = new MLSentimentModel.ModelInput()
             {
@@ -40,10 +41,20 @@ namespace SentimentWebApi.Controllers
 
             return resultSentiment;
         }
-        [HttpGet(Name = "Icon")]
-        public bool GetIcon()
+        [HttpPost]
+        [Route("icon")]
+        public RestIcon GetIcon(InputSentiment inputData)
         {
-            return true;
+            MLSentimentModel.ModelInput processData = new MLSentimentModel.ModelInput()
+            {
+                Review = inputData.Summany
+            };
+            var result = MLSentimentModel.Predict(processData);
+            var resultIcon = new RestIcon
+            {
+                Icon = "💤"
+            };
+            return resultIcon;
         }
 
     }
