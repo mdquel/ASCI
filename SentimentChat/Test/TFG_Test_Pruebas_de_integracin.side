@@ -1,0 +1,145 @@
+{
+  "id": "e9821f3b-4446-469a-b945-2e4fa94d9cae",
+  "version": "2.0",
+  "name": "TFG_Test_Pruebas_de_integración",
+  "url": "https://localhost:7219",
+  "tests": [{
+    "id": "9bd19211-109c-4454-9a5d-eb44a8896df3",
+    "name": "Introducir_nombre",
+    "commands": [{
+      "id": "d85c0039-8a5a-4653-a6a7-15be9cce7770",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d3555499-aab1-4078-bdd7-0605337fd781",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2217a15-a82b-4d48-982d-0883eb1fb55f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(1) input",
+      "targets": [
+        ["css=.form-group:nth-child(1) input", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "92938dec-724b-4b6f-8ccb-70c8a9857e5e",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-group:nth-child(1) input",
+      "targets": [
+        ["css=.form-group:nth-child(1) input", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TFG"
+    }, {
+      "id": "49121d85-67ce-4b75-ae61-178eda843218",
+      "comment": "",
+      "command": "click",
+      "target": "css=button:nth-child(5)",
+      "targets": [
+        ["css=button:nth-child(5)", "css:finder"],
+        ["xpath=//article/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Enviar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "af4a4da2-d1f0-4b71-b18f-4d04db2fb746",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(3) input",
+      "targets": [
+        ["css=.form-group:nth-child(3) input", "css:finder"],
+        ["xpath=//div[2]/label/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "953416a9-9bf0-47f6-a70d-063ca705865d",
+    "name": "Enviar_texto",
+    "commands": [{
+      "id": "2e90a579-c9d4-4790-a894-e41e9e954085",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3b9b54a0-7e33-4d32-a2ef-aa814decedac",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "854x1017",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc71428f-12fe-49e3-af1d-5e4120e75406",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(1) input",
+      "targets": [
+        ["css=.form-group:nth-child(1) input", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bb1f0fd-7c49-4bf4-a010-f1a3c2735386",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-group:nth-child(1) input",
+      "targets": [
+        ["css=.form-group:nth-child(1) input", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "TFG"
+    }, {
+      "id": "6cf57efa-fca7-448d-bcaf-b26a9846c1da",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(3) input",
+      "targets": [
+        ["css=.form-group:nth-child(3) input", "css:finder"],
+        ["xpath=//div[2]/label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c107940-8488-42f5-ad53-fd73578ee626",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form-group:nth-child(3) input",
+      "targets": [
+        ["css=.form-group:nth-child(3) input", "css:finder"],
+        ["xpath=//div[2]/label/input", "xpath:position"]
+      ],
+      "value": "Hoy hace un magnifico día"
+    }, {
+      "id": "51a482be-a455-4007-820a-3611cce2572b",
+      "comment": "",
+      "command": "click",
+      "target": "css=button:nth-child(5)",
+      "targets": [
+        ["css=button:nth-child(5)", "css:finder"],
+        ["xpath=//article/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Enviar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d922c04a-c38d-442d-a02c-abfd8d548c44",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["9bd19211-109c-4454-9a5d-eb44a8896df3"]
+  }],
+  "urls": ["https://localhost:7219/"],
+  "plugins": []
+}
